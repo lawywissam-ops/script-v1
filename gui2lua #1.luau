@@ -1,6 +1,17 @@
 -- Gui to Lua
 -- Version: 3.2
-
+-- Auto-fix missing UIStrokes across all UI elements
+game:GetService("RunService").Heartbeat:Once(function()
+    for _, descendant in ipairs(script.Parent:GetDescendants()) do
+        if descendant:IsA("Frame") or descendant:IsA("ScrollingFrame") or descendant:IsA("TextButton") or descendant:IsA("TextLabel") or descendant:IsA("ImageButton") then
+            if not descendant:FindFirstChildOfClass("UIStroke") then
+                local stroke = Instance.new("UIStroke")
+                stroke.Thickness = 1
+                stroke.Parent = descendant
+            end
+        end
+    end
+end)
 -- Instances:
 
 local LawysFreeAdminScript = Instance.new("ScreenGui")
